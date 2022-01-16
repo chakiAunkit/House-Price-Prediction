@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Path
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from pydantic import BaseModel
 import json
@@ -8,6 +9,19 @@ import warnings
 warnings.filterwarnings("ignore") 
 
 app=FastAPI()
+
+origins = [
+    "http://localhost:3000",
+    "*",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 __locations = None
 __data_columns = None
